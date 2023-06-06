@@ -37,3 +37,9 @@ function validateInput($input, $type)
             return false;
     }
 }
+function checkIfExists($pdo, $query, $params)
+{
+  $stmt = $pdo->prepare($query);
+  $stmt->execute($params);
+  return $stmt->fetchColumn() > 0;
+}

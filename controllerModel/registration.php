@@ -34,11 +34,16 @@ if (isset($_POST['submit'])) {
     if (!validateInput($password, 'password')) {
         $errors['password'] = 'Invalid Password';
     }
-
+    if ($exists = checkIfExists($pdo, 'SELECT COUNT(*) FROM users WHERE email = ?', [$email])) {
+        $errors['emailAlert']='Email already taken';
+    }
+    if ($exists = checkIfExists($pdo, 'SELECT COUNT(*) FROM users WHERE mobile = ?', [$mobile])) {
+        $errors['mobileAlert']='Mobile number already taken';
+    }
     if (empty($errors)) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        try {
+        
             // Prepare and execute the INSERT query
             $stmt = $pdo->prepare('INSERT INTO users (username, email, mobile, password, created_on) 
                 VALUES (:username, :email, :mobile, :password, :created_on)');
@@ -52,12 +57,8 @@ if (isset($_POST['submit'])) {
 
             header('Location: ../views/login');
             exit();
-        } catch (PDOException $e) {
-            $_SESSION['error']=$errors;
-        }
     } else {
-        $_SESSION['error']=$errors;
-
+        $_SESSION['error'] = $errors;
     }
 }
 

@@ -5,11 +5,17 @@ $(document).ready(function () {
   const passwordAlert = $("#passwordAlert");
 
   // Toggle password visibility
-  $(".toggle-password, .ctoggle-password").click(function () {
-    const input = $(this).prev('input[type="password"]');
-    const icon = $(this).children("i");
-    input.attr("type", input.attr("type") === "password" ? "text" : "password");
-    icon.toggleClass("fa-eye fa-eye-slash");
+  $(function () {
+    $(".toggle-password, .ctoggle-password").click(function () {
+      var fieldId = $(this).closest(".input-group").find("input").attr("id");
+      var fieldType = $("#" + fieldId).attr("type");
+
+      $("#" + fieldId).attr(
+        "type",
+        fieldType === "password" ? "text" : "password"
+      );
+      $(this).find("i").toggleClass("fa-eye fa-eye-slash");
+    });
   });
 
   // Verify password and confirm password match
@@ -48,4 +54,10 @@ $(document).ready(function () {
       }
     );
   }
+
+  /************************Login******************************/
+  const emailMobile = $("#emailMobile");
+  emailMobile.on("blur", function () {
+    validateFieldInDatabase("emailMobile", emailMobile, passwordAlert);
+  });
 });

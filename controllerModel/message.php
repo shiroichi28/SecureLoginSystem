@@ -6,7 +6,7 @@ session_start();
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <ul>
             <?php foreach ($_SESSION['error'] as $error) : ?>
-                <li><?php echo $error; ?></li>
+                <li><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></li>
             <?php endforeach; ?>
         </ul>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

@@ -1,10 +1,10 @@
 <?php
 require('../configuration/db_conf.php');
 require('../configuration/function.php');
-
 session_start();
 
 $errors = [];
+
 
 if (isset($_POST['submit'])) {
     $username = sanitizeInput($_POST['username']);
@@ -35,32 +35,32 @@ if (isset($_POST['submit'])) {
         $errors['password'] = 'Invalid Password';
     }
     if ($exists = checkIfExists($pdo, 'SELECT COUNT(*) FROM users WHERE email = ?', [$email])) {
-        $errors['emailAlert']='Email already taken';
+        $errors['emailAlert'] = 'Email already taken';
     }
     if ($exists = checkIfExists($pdo, 'SELECT COUNT(*) FROM users WHERE mobile = ?', [$mobile])) {
-        $errors['mobileAlert']='Mobile number already taken';
+        $errors['mobileAlert'] = 'Mobile number already taken';
     }
     if (empty($errors)) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        
-            // Prepare and execute the INSERT query
-            $stmt = $pdo->prepare('INSERT INTO users (username, email, mobile, password, created_on) 
-                VALUES (:username, :email, :mobile, :password, :created_on)');
-            $stmt->execute([
-                'username' => strtoupper($username),
-                'email' => $email,
-                'mobile' => $mobile,
-                'password' => $hashedPassword,
-                'created_on' => strtotime(date('Y-m-d H:i:s'))
-            ]);
 
-            header('Location: ../views/login');
-            exit();
+        // Prepare and execute the INSERT query
+        $stmt = $pdo->prepare('INSERT INTO users (username, email, mobile, password, created_on) 
+                VALUES (:username, :email, :mobile, :password, :created_on)');
+        $stmt->execute([
+            'username' => strtoupper($username),
+            'email' => $email,
+            'mobile' => $mobile,
+            'password' => $hashedPassword,
+            'created_on' => strtotime(date('Y-m-d H:i:s'))
+        ]);
+
+        header('Location: ../views/login');
+        exit();
     } else {
         $_SESSION['error'] = $errors;
     }
 }
-
+session_regenerate_id();
 header('Location: ../views/registration');
 exit();

@@ -17,3 +17,11 @@ if (isset($_POST['mobile'])) {
     echo $exists ? 'Mobile Number exists in the database.' : '';
     exit;
 }
+if (isset($_POST['emailMobile'])) {
+    $emailMobile = sanitizeInput($_POST['emailMobile']);
+    $exists = checkIfExists($pdo, 'SELECT COUNT(*) FROM users WHERE mobile = ? OR email = ?', [$emailMobile, $emailMobile]);
+
+    echo $exists ? '' : 'User is not registered';
+    exit;
+}
+

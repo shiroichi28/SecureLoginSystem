@@ -1,3 +1,6 @@
+<?php
+header("X-XSS-Protection: 1; mode=block"); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +46,7 @@
                 <button id="submitButton" type="submit" name="submit" class="btn btn-primary w-40">Submit</button>
               </div>
               <div class="mb-3">
-                <p class="text-center mt-3">Already have an account? <a href="./login">Login</a></p>
+                <p class="text-center mt-3">Already have an account? <a href="./login.php">Login</a></p>
               </div>
             </form>
           </div>

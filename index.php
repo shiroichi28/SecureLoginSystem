@@ -1,12 +1,11 @@
-<?php 
+<?php
 $timeout = 900;
 session_start();
 // Update the timeout of session cookie
 $sessionName = session_name();
+if (isset($_COOKIE[$sessionName])) {
 
-if( isset( $_COOKIE[ $sessionName ] ) ) {
-
-    setcookie($sessionName, $_COOKIE[ $sessionName ], [
+    setcookie($sessionName, $_COOKIE[$sessionName], [
         'expires' => time() + $timeout,
         'path' => '/',
         'domain' => '127.0.0.0',
@@ -14,8 +13,5 @@ if( isset( $_COOKIE[ $sessionName ] ) ) {
         'httponly' => true,
         'samesite' => 'Strict'
     ]);
-    
-
 }
 
-?>

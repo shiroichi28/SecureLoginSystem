@@ -1,7 +1,4 @@
-<?php
 
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +37,7 @@
                 </button>
               </div>
               <div class="mb-3">
-                <p class="text-center mt-3">Don't have an account? <a href="./registration">Register</a></p>
+                <p class="text-center mt-3">Don't have an account? <a href="./registration.php">Register</a></p>
               </div>
             </form>
           </div>

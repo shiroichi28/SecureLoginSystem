@@ -39,7 +39,16 @@ function validateInput($input, $type)
 }
 function checkIfExists($pdo, $query, $params)
 {
-  $stmt = $pdo->prepare($query);
-  $stmt->execute($params);
-  return $stmt->fetchColumn() > 0;
+    $stmt = $pdo->prepare($query);
+    $stmt->execute($params);
+    return $stmt->fetchColumn() > 0;
 }
+function validateCSRFToken($token)
+{
+    if (!isset($_SESSION['csrf_token']) || $token !== $_SESSION['csrf_token']) {
+        return false;
+    } else {
+        return true;
+    }
+}
+

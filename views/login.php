@@ -1,4 +1,16 @@
+<?php
+session_start([
+  'use_only_cookies' => 1,
+  'cookie_lifetime' => 0,
+  'cookie_secure' => 1,
+  'cookie_httponly' => 1,
+  'cookie_samesite' =>'strict'
+]);
+if (!isset($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+} // Update the timeout of session cookie
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +34,11 @@
           <div class="card-body">
             <h4 class="card-title text-center p-3">Login</h4>
             <form action="../controllerModel/login.php" method="post" autocomplete="off">
+              <noscript>
+                <p>Please enable JavaScript for better experience.</p>
+              </noscript>
               <div class="mb-3">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
                 <input id="emailMobile" class="form-control" type="text" name="emailMobile" placeholder="Email/Mobile Number" required />
               </div>
               <div class="mb-3 input-group">
@@ -37,7 +53,7 @@
                 </button>
               </div>
               <div class="mb-3">
-                <p class="text-center mt-3">Don't have an account? <a href="./registration.php">Register</a></p>
+                <p class="text-center mt-3">Don't have an account? <a href="registration">Register</a></p>
               </div>
             </form>
           </div>
@@ -47,9 +63,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-
   <script src="../assets/js/script.js" defer></script>
 </body>
 
 </html>
-

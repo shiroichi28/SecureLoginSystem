@@ -59,12 +59,12 @@ if (isset($_POST['submit'])) {
             'created_on' => strtotime(date('Y-m-d H:i:s'))
         ]);
 
-        header('Location: ../views/login');
+        header('Location: ../views/login.php');
         exit();
     } else {
         $_SESSION['error'] = $errors;
     }
 }
 session_regenerate_id();
-header('Location: ../views/registration');
+header('Location: ../views/registration.php');
 exit();

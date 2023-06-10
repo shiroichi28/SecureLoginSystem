@@ -1,5 +1,12 @@
 <?php
 header("X-XSS-Protection: 1; mode=block"); 
+session_start([
+  'use_only_cookies' => 1,
+  'cookie_lifetime' => 0,
+  'cookie_secure' => 1,
+  'cookie_httponly' => 1,
+  'cookie_samesite' =>'strict'
+]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +29,7 @@ header("X-XSS-Protection: 1; mode=block");
         <div class="card">
           <div class="card-body">
             <h4 class="card-title text-center p-3">Register</h4>
-            <form action="../controllerModel/registration" method="post" autocomplete="off">
+            <form action="../controllerModel/registration.php" method="post" autocomplete="off">
               <div class="mb-3 ">
                 <input id="username" class="form-control" type="text" name="username" placeholder="Username" required>
               </div>

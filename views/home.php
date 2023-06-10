@@ -3,7 +3,8 @@ session_start([
     'use_only_cookies' => 1,
     'cookie_lifetime' => 0,
     'cookie_secure' => 1,
-    'cookie_httponly' => 1
+    'cookie_httponly' => 1,
+    'cookie_samesite' =>'strict'
   ]);
 if (isset($_SESSION["user_id"])) {
     if (time() - $_SESSION["login_time_stamp"] > 60) {
@@ -29,7 +30,7 @@ session_regenerate_id();
 
 <body>
     <h1>Username: <?= htmlspecialchars($_SESSION['user_name']) ?></h1>
-    <a href="../controllerModel/logout">Logout</a>
+    <a href="../controllerModel/logout.php">Logout</a>
     <pre>
     <?php
     echo session_id().'<br>';
